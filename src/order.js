@@ -13,7 +13,7 @@ const Orders = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get('https://serverfoodcart.onrender.com');
+        const response = await axios.get('https://serverfoodcart.onrender.com/api/orders');
         if (Array.isArray(response.data)) {
           // Filter out orders older than 30 hours
           const now = new Date();
@@ -98,7 +98,7 @@ const Orders = () => {
       );
       setOrders(updatedOrders);
       setFilteredOrders(updatedOrders);
-      await axios.put(`https://serverfoodcart.onrender.com/${orderId}`, { [field]: parsedValue });
+      await axios.put(`https://serverfoodcart.onrender.com/api/orders/${orderId}`, { [field]: parsedValue });
     } catch (err) {
       console.error('Failed to update order field:', err);
       setError('Failed to update order field');
@@ -107,7 +107,7 @@ const Orders = () => {
 
   const handleDelete = async (orderId) => {
     try {
-      await axios.delete(`https://serverfoodcart.onrender.com/${orderId}`);
+      await axios.delete(`https://serverfoodcart.onrender.com/api/orders/${orderId}`);
       setOrders(orders.filter(order => order._id !== orderId));
       setFilteredOrders(filteredOrders.filter(order => order._id !== orderId));
     } catch (err) {
